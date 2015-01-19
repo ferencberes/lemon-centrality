@@ -36,7 +36,8 @@ struct TopKSelector {
 	}
 
 	void push(IdValuePair newValue) {
-		if (vec.size() >= k_max_size) {
+		//size cannot exceed k_max_size
+		if (vec.size() == k_max_size) {
 			if (vec.back().value < newValue.value) {
 				vec.pop_back();
 				vec.push_back(newValue);
@@ -44,6 +45,7 @@ struct TopKSelector {
 			}
 		} else {
 			vec.push_back(newValue);
+			sort();
 		}
 	}
 
