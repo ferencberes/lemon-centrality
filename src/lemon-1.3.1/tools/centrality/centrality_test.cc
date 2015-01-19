@@ -26,12 +26,11 @@ int main(int, char** argv)
     cout << "We have a directed graph with " << cg.numOfVertices() << " nodes "
          << "and " << cg.numOfEdges() << " arc." << endl;
 
-    //cg.printNeighbours();
+    cg.printNeighbours();
     cg.computeBetaMeasure();
-    //cg.computePageRank(0.85,5);
-    //cg.computeSalsa(5);
-    //cg.computeLoopEdgeRatio();
-    //cg.computeHarmonic();
+    cg.computePageRank(0.85,5);
+    cg.computeSalsa(5);
+    cg.computeLoopEdgeRatio();
 
     return 0;
 }

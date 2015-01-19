@@ -16,7 +16,7 @@ public:
 
     ListDigraphForCentrality(ListDigraph &g, ListDigraph::NodeMap<NodeId> &vertexIds, int topKNumber) : _graph(g), _id(vertexIds),
         _num_of_in_edges(_graph), _num_of_out_edges(_graph), finalRatio(_graph), finalBeta(_graph,0), finalPageRank(_graph, 1.0 / numOfVertices()),
-		finalSalsa(_graph, salsa_data()), finalHarmonicScore(_graph)
+		finalSalsa(_graph, salsa_data())
     {
     	_topKNumber = topKNumber;
     	initializeMaps();
@@ -219,41 +219,6 @@ public:
         std::cout << "Elapsed time for Salsa computing: " << elapsed_secs << " sec." << std::endl;
     }
 
-    void computeHarmonic() {
-
-    	ListDigraph *g_p;
-    	g_p = &_graph;
-    	typedef ReverseDigraph<ListDigraph> RDigraph;
-      	RDigraph reverse_graph(*g_p);
-
-      	//std::cout << "This is just a dummy implementation. Do not run this on huge graphs!!!" << std::endl;
-
-      	//TODO: this function works but on large graphs it is too slow that is why commented out.
-
-     	clock_t begin = clock();
-      	for (ListDigraph::NodeIt v(_graph); v != INVALID; ++v)
-      	{
-      		Bfs<RDigraph> bfs(reverse_graph);
-      		bfs.run(v);
-      		float score_to_vertex = 0.0;
-
-      		for (ListDigraph::NodeIt t(_graph); t != INVALID; ++t)
-      		{
-      			if (bfs.reached(t) && v!=t) {
-      				score_to_vertex += 1 / bfs.dist(t);
-      			}
-      		}
-      		finalHarmonicScore[v]=score_to_vertex;
-      	}
-
-        clock_t end = clock();
-        double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-        printCentralityMeasureMap("Harmonic-score",finalHarmonicScore);
-        std::cout << "Elapsed time for Harmonic-score computing: " << elapsed_secs << " sec." << std::endl;
-
-    }
-
-
     int getNumOfInEdges(NodeId id) {
     	int output=-1;
     	for (ListDigraph::NodeIt v(_graph); v != INVALID; ++v)
@@ -288,18 +253,6 @@ public:
            	}
         }
         return output;
-    }
-
-    float getHarmonicScore(NodeId id) {
-       float output=-1.0;
-       for (ListDigraph::NodeIt v(_graph); v != INVALID; ++v)
-       {
-          	if(_id[v]==id) {
-           		output = finalHarmonicScore[v];
-          		break;
-           	}
-       }
-       return output;
     }
 
     float getPageRank(NodeId id) {
@@ -364,7 +317,6 @@ private:
     CentralityMeasureMap finalBeta;
     CentralityMeasureMap finalPageRank;
     SalsaMeasureMap finalSalsa;
-    CentralityMeasureMap finalHarmonicScore;
 
 };
 

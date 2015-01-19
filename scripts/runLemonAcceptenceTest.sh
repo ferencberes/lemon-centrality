@@ -22,3 +22,4 @@ echo "$inputDir"
 
 echo "This script tests the ListDigraphForCentrality class with its functions for a fixed input."
 "$lemonProgramDir"/centrality_acceptence_test "$inputDir"/digraph.lgf
+
