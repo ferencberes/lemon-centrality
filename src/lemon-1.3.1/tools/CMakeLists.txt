@@ -7,6 +7,8 @@ LINK_DIRECTORIES(
   ${PROJECT_BINARY_DIR}/lemon
 )
 
+ADD_SUBDIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/centrality)
+
 ADD_EXECUTABLE(lgf-gen lgf-gen.cc)
 TARGET_LINK_LIBRARIES(lgf-gen lemon)
 
