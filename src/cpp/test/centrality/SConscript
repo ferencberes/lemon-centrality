@@ -1,0 +1,4 @@
+Import('env', 'ALGO_OBJ')
+
+#env.Program('testgtest', ['testgtest.cpp'] + ALGO_OBJ)
+env.Program('testgtest', ['testgtest.cpp'])

@@ -1,0 +1,40 @@
+# -O3 jobban optimalizal
+# -ggdb ezzel kell forditani, ha gdb-vel akarjuk debuggolni
+# -pg gprof miatt?
+# -g valgrind mint ?
+
+# -O3 jobban optimalizal
+# -ggdb ezzel kell forditani, ha gdb-vel akarjuk debuggolni
+# -pg gprof miatt?
+# -g valgrind mint ?
+
+#flags = ['-O3', '-g', '-ggdb', '-Wall']
+flags = [ '-g', '-ggdb', '-Wall']
+
+GTEST = "#../dep/gtest/"
+LEMON_BIN = '#../dep/lemon_bin/'
+LEMON_SRC = '#../dep/lemon_src/'
+env = Environment(
+        CXX = 'g++',
+        CCFLAGS = flags,
+        #CPPPATH=[ '#.', GTEST + 'include/', LEMON_BIN + 'include/', LEMON_SRC + 'lemon/'],
+        #CPPPATH=[ '#.', GTEST + 'include/', LEMON_SRC + 'lemon/'],
+        CPPPATH=[ '#.', GTEST + 'include/', LEMON_BIN + 'include/'],
+        LIBPATH=['/usr/local/googlecode/lib', GTEST + 'build/', LEMON_BIN + 'lib/'],
+        LIBS=['gtest', 'pthread']
+)
+
+testCompile = ARGUMENTS.get('test', False)
+
+SConscript([
+    'main/centrality/SConscript'],
+    exports = ['env'])
+
+ALGO_OBJ = Glob('#/../bin/main/centrality/*.o')
+ 
+if testCompile: 
+  SConscript([
+    'test/centrality/SConscript',
+    ],
+    exports = ['env', 'ALGO_OBJ'])
+

@@ -1,0 +1,8 @@
+Import('env')
+
+env.Object(Glob('*.cc'))
+
+#utils = Glob('#/../bin/main/common/util/*.o')
+
+env.Program('centrality_test', ['centrality_test.cc'])
+env.Program('centrality_acceptence_test', ['centrality_acceptence_test.cc'])
