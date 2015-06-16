@@ -1,6 +1,6 @@
 language: cpp 
 
-install: ./install.sh
+install: ./manage/install.sh
 
-script: ./compile_and_test_all.sh
+script: ./manage/compile_and_test_all.sh
 
