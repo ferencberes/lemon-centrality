@@ -6,6 +6,7 @@ SCRIPT_DIR=$(readlink -f $(dirname "$0"))
 DEP_DIR=$SCRIPT_DIR/../../dep
 LEMON_SRC_DIR=$DEP_DIR/lemon_src
 LEMON_BIN_DIR=$DEP_DIR/lemon_bin
+CMAKE_BIN_DIR=$DEP_DIR/cmake/bin
 
 if [ -d "$LEMON_SRC_DIR" ]; then
   echo "$LEMON_SRC_DIR exists already. Exiting."
@@ -30,8 +31,11 @@ mv lemon-1.3.1 "$LEMON_SRC_DIR"
 cd $LEMON_SRC_DIR
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX="$LEMON_BIN_DIR" .. 
+$CMAKE_BIN_DIR/cmake -DCMAKE_INSTALL_PREFIX="$LEMON_BIN_DIR" .. 
 make
 make install
 
-echo "LEMON successsfully installed in $LEMON_BIN_DIR" 
+cd $LEMON_BIN_DIR
+LEMON_DIR=`pwd`
+
+echo "LEMON successsfully installed in $LEMON_DIR" 
